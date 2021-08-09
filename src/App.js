@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+// Router-dom
+import {BrowserRouter as AllRoutes, Switch, Route} from 'react-router-dom';
+//material UI
+import {createTheme, ThemeProvider} from '@material-ui/core';
+import {purple} from '@material-ui/core/colors';
+//Pages & Components
+import Create from './Pages/Create';
+import Notes from './Pages/Notes';
+import Error from './Pages/Error';
+import Layout from './Components/Layout'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () =>{
+  const theme = createTheme({
+    palette:{
+      secondary:purple
+    }
+  })
+    return(
+      <ThemeProvider theme={theme}>
+        <AllRoutes>
+          <Layout>
+            <Switch>
+              <Route exact path='/' component={Notes} />
+              <Route path='/create' component={Create} />
+              <Route path='/:any' component={Error} />
+            </Switch>
+          </Layout>
+        </AllRoutes>
+      </ThemeProvider>
+    )
 }
 
 export default App;
